@@ -1,0 +1,10 @@
+
+.field-error{
+      border: 1px solid red;
+}
+
+.smallImg{
+  width:90px;
+  height:90px;
+  background-image: url("C:/Users/Shivangi/Desktop/angular8/templateDrivenForms/src/assets/1302.jpg");
+}

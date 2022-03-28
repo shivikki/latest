@@ -1,0 +1,125 @@
+<!--to enable data binding in forms import FormsModule in app.module.ts-->
+<!--ngForm /ngModel comes from FormsModule...helps in creating template ref variable-->
+
+<div class="container">                      <!--ngNativeValidate to display error ..put it inside form tag-->
+            <!--if u want to display error or clicking the submit button use ngSubmit and pass form ref variable in it for validation-->
+
+            <div class="row">
+            <form class="col-3" #userForm="ngForm"  (ngSubmit)="onSubmit(userForm)"><!--#form is template ref variable-->
+    {{userForm.value | json}}  <!--to see input entered .. for testing purposes-->
+    <!--also needto use ngModel -->
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" name="name" class="form-control " [(ngModel)]="registration.name" required
+      pattern="h.*" #nameField="ngModel" [class.field-error]="userForm.submitted && nameField.invalid"/> <!--name strat with h-->
+      <!--can use other validators like <minlength="3"> <maxlengh="5"-->
+      <!--if type="number" then use min="3" and max="6 not minlength"-->
+      <!--for css validation make a ref variable like #nameField and assign ngModel to it-->
+      <br>
+      <small [hidden]="nameField.valid || !userForm.submitted" class="alert alert-danger">
+        Enter valid name
+      </small>
+      <!-- on screen this will be displayed ...form-control ng-untouched ng-pristine ng-invalid by default-->
+      <!--ng-invalid bcoz we used requied but the input is empty-->
+      <!--ng-prestine indicated value not modified-->
+      <!--once modified it shows ng-dirty-->
+    </div>
+    <!--use of label-when u use label ..click on label ..focus goes on input-->
+    <!--checkbox-->
+    <div class="form-check form-group">
+
+      <input type="checkbox" id="notifications" name="notifications" class="form-check-input " [(ngModel)]="registration.notifications" />
+      <label class="form-check-label" for="notifications">Notifications</label>
+      <!--id and for must be same-->
+      <br>
+
+    </div>
+
+
+    <!--radio-->
+    <!--form-group used for proper allignment of form-->
+    <p>Gender</p>
+    <div class="form-group">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="gender" id="male" value="Male" checked [(ngModel)]="registration.gender">
+        <label class="form-check-label" for="male">Male</label>
+        <input class="form-check-input" type="radio" name="gender" id="female" value="Female" [(ngModel)]="registration.gender">
+        <label class="form-check-label" for="female">Female</label>
+      </div>
+    </div>
+
+
+    <!--dropdown-->
+    <div class="form-group">
+        <label for="subscription">subscription type:</label>
+        <select class="form-control" id="subscription" name="subscription" [(ngModel)]="registration.subscription"><!--class form control is used for input type =text,select,textarea-->
+              <option>Monthly</option>
+              <option>Quarterly</option>
+              <option>Annually</option>
+        </select>
+
+    </div>
+
+    <!--textarea-->
+    <div class="form-group">
+          <label for="notes">Notes</label>
+          <textarea id="notes" name="notes" class="form-control" rows="3" [(ngModel)]="registration.notes"></textarea>
+
+    </div>
+
+
+    <!--password-->
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" [(ngModel)]="registration.password">
+
+    </div>
+
+
+      <!--date-->
+      <div class="form-group">
+        <label for="date" tabindex="0">Date</label>
+        <input type="date" id="date" name="notes" class="form-control" [(ngModel)]="registration.date">
+
+      </div>
+      <div role="img" [attr.aria-label]="imageSteps" tabindex="0">
+        <span>Testing aria lebel on no role div</span>
+        <br>
+        <!--span class="smallImg"></span-->
+        <img src="assets/1302.jpg" alt="imagesTest1234" height="20px" width="20px">
+        <span>test2</span>
+      </div>
+      <button class="btn btn-primary" [attr.aria-label]="errorList">Ok</button>
+
+
+      <!--datepicker-->
+      <div class="form-group">
+        <div class="form-group">
+          <div class="input-group">
+            <input class="form-control" placeholder="dd/mm/yyyy"
+                   name="d2" #c2="ngModel" [(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">Date</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <hr/>
+    <pre>Model: {{ model2 }}</pre>
+
+  </form>
+
+  </div>
+</div>
+<!--for eachcompnonent use form group and input of form use class "form-control"-->
+
+
+<!--for css file-->
+<!--# not(form) makes only that particular field red and not the whole form-->
+<!--.ng-invalid:not(form).ng-touched{
+  border:1px solid red;
+}-->
+<!--if u want to display error there itself withput clicking on submit-->
+<!---->
